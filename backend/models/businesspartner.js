@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      //businesspartner.hasOne(User, {through: user_id});
     }
   }
   businesspartner.init({
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: DataTypes.STRING,
     value: {
-      DataTypes.TEXT,
+      type: DataTypes.TEXT,
       unique: true
     },
     description: DataTypes.TEXT,
