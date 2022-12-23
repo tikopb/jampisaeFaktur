@@ -44,7 +44,56 @@ module.exports = {
       grandTotal: {
         type: Sequelize.INTEGER
       }
-    });
+    },
+    {
+      uniqueKeys: {
+          actions_unique: {
+              fields: ['fakturno', 'businesspartner_id']
+          }
+      }
+    }
+    ),
+    //adding constaint
+     await queryInterface.addConstraint(
+      'invoices',{
+        fields: ['createdBy'],
+        type: 'foreign key',
+        name: 'invC_user_const',
+        references: { //Required field
+          table: 'users',
+          field: 'user_id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+    )
+    await queryInterface.addConstraint(
+      'invoices',{
+        fields: ['updatedBy'],
+        type: 'foreign key',
+        name: 'invU_user_const',
+        references: { //Required field
+          table: 'users',
+          field: 'user_id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+    ),
+    await queryInterface.addConstraint(
+      'invoices',{
+        fields: ['businesspartner_id'],
+        type: 'foreign key',
+        name: 'invoice_bp_const',
+        references: { //Required field
+          table: 'businesspartners',
+          field: 'businesspartner_id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+    )
+    ;
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('invoices');

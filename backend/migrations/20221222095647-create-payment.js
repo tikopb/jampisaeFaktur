@@ -44,7 +44,48 @@ module.exports = {
       grandTotal: {
         type: Sequelize.INTEGER
       }
-    });
+    }),
+    //adding constaint
+     await queryInterface.addConstraint(
+      'payments',{
+        fields: ['createdBy'],
+        type: 'foreign key',
+        name: 'payC_user_const',
+        references: { //Required field
+          table: 'users',
+          field: 'user_id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+    )
+    await queryInterface.addConstraint(
+      'payments',{
+        fields: ['updatedBy'],
+        type: 'foreign key',
+        name: 'payU_user_const',
+        references: { //Required field
+          table: 'users',
+          field: 'user_id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+    ),
+    await queryInterface.addConstraint(
+      'payments',{
+        fields: ['businesspartner_id'],
+        type: 'foreign key',
+        name: 'payment_bp_const',
+        references: { //Required field
+          table: 'businesspartners',
+          field: 'businesspartner_id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+    )
+    ;
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('payments');
