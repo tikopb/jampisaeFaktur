@@ -44,7 +44,15 @@ module.exports = {
       grandTotal: {
         type: Sequelize.INTEGER
       }
-    }),
+    },
+    {
+      uniqueKeys: {
+          actions_unique: {
+              fields: ['fakturno', 'businesspartner_id']
+          }
+      }
+    }
+    ),
     //adding constaint
      await queryInterface.addConstraint(
       'invoices',{
