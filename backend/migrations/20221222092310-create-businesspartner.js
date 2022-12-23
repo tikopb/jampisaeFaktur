@@ -42,7 +42,36 @@ module.exports = {
       CnNominal: {
         type: Sequelize.INTEGER
       }
-    });
+    }),
+    //adding constaint
+    await queryInterface.addConstraint(
+      'businesspartners',{
+        fields: ['createdBy'],
+        type: 'foreign key',
+        name: 'bpC_user_const',
+        references: { //Required field
+          table: 'users',
+          field: 'user_id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+    )
+     //adding constaint
+     await queryInterface.addConstraint(
+      'businesspartners',{
+        fields: ['updatedBy'],
+        type: 'foreign key',
+        name: 'bpU_user_const',
+        references: { //Required field
+          table: 'users',
+          field: 'user_id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+    )
+    ;
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('businesspartners');
