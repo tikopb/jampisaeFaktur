@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true
     },
-    paymentNo: DataTypes.STRING,
+    paymentNo: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     paymentDate: DataTypes.DATE,
     description: DataTypes.TEXT,
     isactive: DataTypes.BOOLEAN,

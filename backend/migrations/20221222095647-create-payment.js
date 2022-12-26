@@ -2,6 +2,9 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    //define sequence first start from 1000 id 1- 1000 use for data seeder
+    await queryInterface.sequelize.query("CREATE SEQUENCE paymentNoSquence start 1 increment 1")
+    //create table
     await queryInterface.createTable('payments', {
       payments_id : {
         allowNull: false,
@@ -10,7 +13,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       paymentNo: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       paymentDate: {
         type: Sequelize.DATE
